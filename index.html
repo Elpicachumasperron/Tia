@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Tía Sonia — Día de las Madres ❤️</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Pétalos flotantes -->
+  <div class="petals-container" aria-hidden="true">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+
+  <!-- Encabezado -->
+  <header class="header">
+    <h1>Para ti, <span>Tía Sonia</span></h1>
+    <p class="subtitle">Día de las Madres · 2026</p>
+    <div class="divider">
+      <span class="divider-icon">✿</span>
+    </div>
+  </header>
+
+  <!-- Escena del sobre -->
+  <main class="scene" role="main">
+    <div class="envelope-wrapper" id="envelopeWrapper"
+         role="button"
+         tabindex="0"
+         aria-label="Haz clic para abrir la carta"
+         title="Haz clic para abrir">
+
+      <!-- Carta asomando antes de abrirse del todo -->
+      <div class="letter-peek" id="letterPeek" aria-hidden="true"></div>
+
+      <div class="envelope" id="envelope">
+        <div class="envelope-body"></div>
+        <div class="envelope-bottom"></div>
+        <div class="envelope-left"></div>
+        <div class="envelope-right"></div>
+        <div class="envelope-flap" id="envelopeFlap"></div>
+        <div class="stamp"  aria-hidden="true"></div>
+        <div class="postmark" aria-hidden="true"></div>
+      </div>
+
+      <span class="hint-text" aria-hidden="true">✦ Haz clic para abrir ✦</span>
+    </div>
+  </main>
+
+  <!-- Carta desplegada (modal) -->
+  <div class="letter-container" id="letterContainer" role="dialog"
+       aria-modal="true" aria-label="Carta para Tía Sonia">
+
+    <!-- Overlay para cerrar -->
+    <div class="letter-overlay" id="letterOverlay"></div>
+
+    <article class="letter-card">
+      <button class="close-btn" id="closeBtn" aria-label="Cerrar carta">✕</button>
+
+      <header class="letter-header">
+        <span class="letter-date">10 de mayo de 2026</span>
+        <h2 class="letter-title">Tía Sonia</h2>
+        <p class="letter-subtitle">Con todo mi cariño y gratitud</p>
+        <div class="letter-separator">✿ ❤ ✿</div>
+      </header>
+
+      <div class="letter-body">
+        <p>Tía Sonia, desde el 3 de mayo que llegué a tu casa por los problemas que tuve, tú has estado ahí conmigo en todo momento. Nunca te has quejado de nada y siempre has tratado de ayudarme y hacerme sentir bien.</p>
+
+        <p>Gracias por apoyarme, por ayudarme a conseguir trabajo y por cada consejo y cada palabra cuando me siento mal. De verdad que siempre me consuelas y haces que me sienta querido y tranquilo.</p>
+
+        <p>Hoy, en el Día de las Madres, quiero que sepas que te considero como una mamá más para mí ❤️ Gracias por abrirme las puertas de tu casa y de tu corazón, y por todo el cariño que me das. Te quiero mucho, tía.</p>
+      </div>
+
+      <footer class="letter-signature">
+        <span class="sign-label">Con mucho amor,</span>
+        <span class="sign-name">Tu sobrino</span>
+        <span class="sign-hearts">❤ ❤ ❤</span>
+      </footer>
+    </article>
+  </div>
+
+  <!-- Pie de página -->
+  <footer class="footer" aria-hidden="true">
+    Feliz Día de las Madres &nbsp;·&nbsp; Con amor, siempre ❤
+  </footer>
+
+  <script>
+    const wrapper   = document.getElementById('envelopeWrapper');
+    const container = document.getElementById('letterContainer');
+    const closeBtn  = document.getElementById('closeBtn');
+    const overlay   = document.getElementById('letterOverlay');
+
+    function openLetter() {
+      if (wrapper.classList.contains('opened')) return;
+
+      // 1. Fase opening: levanta la solapa y asoma la carta
+      wrapper.classList.add('opening');
+
+      // 2. Después de la animación, mostrar la carta completa
+      setTimeout(() => {
+        wrapper.classList.add('opened');
+        container.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }, 900);
+    }
+
+    function closeLetter() {
+      container.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+
+    // Abrir
+    wrapper.addEventListener('click', openLetter);
+    wrapper.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLetter(); }
+    });
+
+    // Cerrar
+    closeBtn.addEventListener('click', closeLetter);
+    overlay.addEventListener('click', closeLetter);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLetter();
+    });
+  </script>
+</body>
+</html>
+
